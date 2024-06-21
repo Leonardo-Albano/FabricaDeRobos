@@ -12,8 +12,6 @@ public class App {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // createEsteira04(); // Comentado, pois não está implementado
-
         Thread thread_esteira01 = new Thread(createEsteira01());
         Thread thread_esteira02 = new Thread(createEsteira02());
         Thread thread_esteira03 = new Thread(createEsteira03());
