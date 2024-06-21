@@ -1,15 +1,13 @@
-Imagine uma f·brica especializada na construÁ„o de RobÙs autÙnomos que possui quatro esteiras. 
+Imagine uma f√°brica especializada na constru√ß√£o de Rob√¥s aut√¥nomos que possui quatro esteiras. 
 
-Na primeira esteira trabalha 4 grupos de 12 funcion·rios, onde cada grupo È alocado em uma mesa de forma circular. Estes grupos produzem os componentes necess·rios para fazer os membros do robÙ. Cada membro produzido È colocado na primeira esteira (circular), assim que ele fica pronto. O grupo 1 produz o braÁo esquerdo do robÙ, o grupo 2 produz o braÁo direito, o grupo 3 produz a perna direita e o grupo 4 produz a perna esquerda. Cada funcion·rio por si sÛ È capaz de produzir o membro do robÙ de forma autÙnoma. 
+Na primeira esteira trabalha 4 grupos de 12 funcion√°rios, onde cada grupo √© alocado em uma mesa de forma circular. Estes grupos produzem os componentes necess√°rios para fazer os membros do rob√¥. Cada membro produzido √© colocado na primeira esteira (circular), assim que ele fica pronto. O grupo 1 produz o bra√ßo esquerdo do rob√¥, o grupo 2 produz o bra√ßo direito, o grupo 3 produz a perna direita e o grupo 4 produz a perna esquerda. Cada funcion√°rio por si s√≥ √© capaz de produzir o membro do rob√¥ de forma aut√¥noma. 
 
-Na segunda esteira trabalham 2 grupos de 9 funcion·rios, seguindo a mesma lÛgica, com o grupo 1 sendo encarregado de produzir a carcaÁa do robÙ e o grupo 2 encarregado da produÁ„o da cabeÁa do robÙ. Finalmente na terceira esteira, trabalham 3 grupos de 5 funcion·rios, os funcion·rios dos trÍs grupos s„o respons·veis por pegar as seguintes peÁas: o braÁo direito, o braÁo esquerdo, perna esquerda, perna direita da esteira 1, a cabeÁa e corpo da esteira 2 para montar o robÙ, colocando ele em uma esteira final, para ficar armazenado para a venda.
+Na segunda esteira trabalham 2 grupos de 9 funcion√°rios, seguindo a mesma l√≥gica, com o grupo 1 sendo encarregado de produzir a carca√ßa do rob√¥ e o grupo 2 encarregado da produ√ß√£o da cabe√ßa do rob√¥. 
 
-*Importante, os funcion·rios em cada mesa, utilizam as 2 ferramentas adjacentes que est„o na mesa para montar o robÙ. Use uma estratÈgia para evitar deadlocks. Os funcion·rios n„o produzem o robÙ de forma sequencial, ou seja, trabalham se possuÌrem a posse das peÁas e ferramentas.
-
-** N„o use as ferramentas para fazer a coleta de peÁas para a montagem do robÙ, as ferramentas s„o necess·rias apenas para efetivamente montar o robÙ. Use paralelismo para o funcion·rio fazer a procura de peÁas nas 2 esteiras de forma simult‚nea.
-
-Na esteira final, o objeto robÙ deve conter o seguinte log: posiÁ„o que o membro se encontrava na esteira 1, grupo e funcion·rio que fabricou o membro. PosiÁ„o que o corpo ou a cabeÁa do robÙ se encontrava na esteira 2, grupo e funcion·rio que fabricou a cabeÁa e o corpo. Finalmente, deve conter o grupo que montou o robÙ, o funcion·rio que fez a montagem e a posiÁ„o que ele se encontra na esteira final, pronto para a venda.  
-
+Finalmente na terceira esteira, trabalham 3 grupos de 5 funcion√°rios, os funcion√°rios dos tr√™s grupos s√£o respons√°veis por pegar as seguintes pe√ßas: o bra√ßo direito, o bra√ßo esquerdo, perna esquerda, perna direita da esteira 1, a cabe√ßa e corpo da esteira 2 para montar o rob√¥, colocando ele em uma esteira final, para ficar armazenado para a venda.
+*Importante, os funcion√°rios em cada mesa, utilizam as 2 ferramentas adjacentes que est√£o na mesa para montar o rob√¥. Use uma estrat√©gia para evitar deadlocks. Os funcion√°rios n√£o produzem o rob√¥ de forma sequencial, ou seja, trabalham se possu√≠rem a posse das pe√ßas e ferramentas.
+** N√£o use as ferramentas para fazer a coleta de pe√ßas para a montagem do rob√¥, as ferramentas s√£o necess√°rias apenas para efetivamente montar o rob√¥. Use paralelismo para o funcion√°rio fazer a procura de pe√ßas nas 2 esteiras de forma simult√¢nea.
+Na esteira final, o objeto rob√¥ deve conter o seguinte log: posi√ß√£o que o membro se encontrava na esteira 1, grupo e funcion√°rio que fabricou o membro. Posi√ß√£o que o corpo ou a cabe√ßa do rob√¥ se encontrava na esteira 2, grupo e funcion√°rio que fabricou a cabe√ßa e o corpo. Finalmente, deve conter o grupo que montou o rob√¥, o funcion√°rio que fez a montagem e a posi√ß√£o que ele se encontra na esteira final, pronto para a venda
 
 {
   "Esteira01": {
