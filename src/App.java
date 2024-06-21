@@ -5,98 +5,97 @@ import java.util.concurrent.Semaphore;
 import Fabrica.*;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-        
 
-        esteira01();
-        esteira02();
-        esteira03();
-        esteira04();
+    /**
+     * 
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        Esteira esteira01 = createEsteira01();
+        Esteira esteira02 = createEsteira02();
+        Esteira esteira03 = createEsteira03();
+        // createEsteira04(); // Comentado, pois não está implementado
     }
 
-    private static List<Funcionario> criaFuncionarios(String esteira, int quantidadeFuncionarios){
+    /**
+     * Cria uma lista de funcionários com semáforos associados.
+     * 
+     * @param esteira                Nome da esteira
+     * @param grupo                  Nome do grupo
+     * @param quantidadeFuncionarios Número de funcionários
+     * @return Lista de funcionários
+     */
+    private static List<Funcionario> criaFuncionarios(String esteira, String grupo, int quantidadeFuncionarios) {
         List<Semaphore> listaSemaforos = new ArrayList<>();
+        List<Funcionario> listaFuncionarios = new ArrayList<>();
+
         for (int i = 0; i < quantidadeFuncionarios; i++) {
             listaSemaforos.add(new Semaphore(1));
         }
-        
-        List<Funcionario> listaFuncionarios = new ArrayList<>();
+
         for (int i = 0; i < quantidadeFuncionarios; i++) {
-            Semaphore ferramenta_esq; 
-            Semaphore ferramenta_dir;
+            Semaphore ferramentaEsq = listaSemaforos.get(i);
+            // Isso substitui o seu else.
+            Semaphore ferramentaDir = listaSemaforos.get((i + 1) % quantidadeFuncionarios);
 
-            if(i != quantidadeFuncionarios){
-                ferramenta_esq = listaSemaforos.get(i);
-                ferramenta_dir = listaSemaforos.get(i+1);
-            }else{
-                ferramenta_dir = listaSemaforos.get(0);
-                ferramenta_esq = listaSemaforos.get(quantidadeFuncionarios);
-            }
-
-            listaFuncionarios.add(new Funcionario((esteira + "_" + i), ferramenta_esq, ferramenta_dir));
+            listaFuncionarios.add(new Funcionario(esteira + "_" + grupo + "_" + i, ferramentaEsq, ferramentaDir));
         }
 
         return listaFuncionarios;
     }
 
     /**
-     * Responsável por gerar braço direito, braço esquerdo, perna direita e perna esquerda
+     * Cria a esteira responsável por gerar braço direito, braço esquerdo, perna
+     * direita e perna esquerda.
      * 
-     * @return void 
+     * @return Esteira
      */
-    private static void esteira01() {
-        Semaphore esteira_01_sem = new Semaphore(1);
-        Grupo g1 = new Grupo(criaFuncionarios("", 12));
-        Grupo g2 = new Grupo(criaFuncionarios(12));
-        Grupo g3 = new Grupo(criaFuncionarios(12));
-        Grupo g4 = new Grupo(criaFuncionarios(12));
+    private static Esteira createEsteira01() {
+        Semaphore esteiraSem = new Semaphore(1);
 
         List<Grupo> listaDeGrupos = new ArrayList<>();
-        listaDeGrupos.add(g1);
-        listaDeGrupos.add(g2);
-        listaDeGrupos.add(g3);
-        listaDeGrupos.add(g4);
+        for (int i = 1; i <= 4; i++) {
+            listaDeGrupos.add(new Grupo(criaFuncionarios("01", "0" + i, 12)));
+        }
 
-        Esteira esteira_01 = new Esteira(listaDeGrupos, esteira_01_sem);
+        return new Esteira(listaDeGrupos, esteiraSem);
     }
 
     /**
-     * Responsável p
-abrac a rareg r
+     * Cria a esteira responsável por gerar a carcaça e a cabeça do robô.
      * 
-     * 
+     * @return Esteira
      */
-    private static void esteira02() {
-        Semaphore esteira_02_sem = new Semaphore(1);
-        Grupo g1 = new Grupo(criaFuncionarios(9));
-        Grupo g2 = new Grupo(criaFuncionarios(9));
+    private static Esteira createEsteira02() {
+        Semaphore esteiraSem = new Semaphore(1);
 
         List<Grupo> listaDeGrupos = new ArrayList<>();
+        for (int i = 1; i <= 2; i++) {
+            listaDeGrupos.add(new Grupo(criaFuncionarios("02", "0" + i, 9)));
+        }
 
-        listaDeGrupos.add(g1);
-        listaDeGrupos.add(g2);
-
-        Esteira esteira_02 = new Esteira(listaDeGrupos, esteira_02_sem);
-
+        return new Esteira(listaDeGrupos, esteiraSem);
     }
 
-    private static void esteira03() {
-        Semaphore esteira_03_sem = new Semaphore(1);
-        Grupo g1 = new Grupo(null);
-        Grupo g2 = new Grupo(null);
-        Grupo g3 = new Grupo(null);
+    /**
+     * Cria a esteira responsável por montar o robô com todos os componentes.
+     * 
+     * @return Esteira
+     */
+    private static Esteira createEsteira03() {
+        Semaphore esteiraSem = new Semaphore(1);
 
         List<Grupo> listaDeGrupos = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            listaDeGrupos.add(new Grupo(criaFuncionarios("03", "0" + i, 5)));
+        }
 
-        listaDeGrupos.add(g1);
-        listaDeGrupos.add(g2);
-        listaDeGrupos.add(g3);
-
-        Esteira esteira_03 = new Esteira(listaDeGrupos, esteira_03_sem);
+        return new Esteira(listaDeGrupos, esteiraSem);
     }
 
-    private static void esteira04() {
-        Semaphore esteira_04_sem = new Semaphore(1);
-        Grupo g4 = new Grupo(null);
-    }
+    // private static void esteira04() {
+    // Semaphore esteira_04_sem = new Semaphore(1);
+    // Grupo g4 = new Grupo(null);
+    // }
 }
