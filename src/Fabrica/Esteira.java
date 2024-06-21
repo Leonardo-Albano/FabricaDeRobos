@@ -3,7 +3,7 @@ package Fabrica;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-public class Esteira {
+public class Esteira implements Runnable {
     public List<Grupo> grupos;
     public Semaphore semaforo;
 
@@ -12,5 +12,9 @@ public class Esteira {
         this.semaforo = semaforo;
     }
 
+    @Override
+    public void run() {
+        System.out.println("AOBA");
 
+    }
 }

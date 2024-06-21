@@ -12,10 +12,16 @@ public class App {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        Esteira esteira01 = createEsteira01();
-        Esteira esteira02 = createEsteira02();
-        Esteira esteira03 = createEsteira03();
         // createEsteira04(); // Comentado, pois não está implementado
+
+        Thread thread_esteira01 = new Thread(createEsteira01());
+        Thread thread_esteira02 = new Thread(createEsteira02());
+        Thread thread_esteira03 = new Thread(createEsteira03());
+        // Thread thread_esteira04 = new Thread(createEsteira04());
+
+        thread_esteira01.start();
+        thread_esteira02.start();
+        thread_esteira03.start();
     }
 
     /**
