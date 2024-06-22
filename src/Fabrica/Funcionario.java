@@ -1,23 +1,16 @@
 package Fabrica;
 
-import java.util.concurrent.Semaphore;
+public class Funcionario {
+    
+    private int id;
+    private Grupo grupo;
 
-public class Funcionario implements Runnable{
-    public String id;
-    public Semaphore ferramenta_esq;
-    public Semaphore ferramenta_dir;
-    public Componente componente;
-
-    public Funcionario(String id, Semaphore ferramenta_esq, Semaphore ferramenta_dir) {
+    public Funcionario(int id, Grupo grupo, String produzTipoDoComponente) {
         this.id = id;
-        this.ferramenta_esq = ferramenta_esq;
-        this.ferramenta_dir = ferramenta_dir;
+        this.grupo = grupo;
+        this.produzTipoDoComponente = produzTipoDoComponente;
     }
-
-    @Override
-    public void run() {
-        System.out.println("AOBA");    
-        
-    }
-
+    private String produzTipoDoComponente;
+    //0 - braço esquerdo / 1 - braço direito / 2 - perna esquerda / 3 - perna direita
+    //4 - carcaça / 5 - cabeça
 }

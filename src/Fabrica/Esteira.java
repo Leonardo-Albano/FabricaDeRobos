@@ -1,20 +1,17 @@
 package Fabrica;
 
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
-public class Esteira implements Runnable {
-    public List<Grupo> grupos;
-    public Semaphore semaforo;
+public class Esteira {
+    
+    private int id;
+    private List<Grupo> grupos;
 
-    public Esteira(List<Grupo> grupos, Semaphore semaforo) {
-        this.grupos = grupos;
-        this.semaforo = semaforo;
+    public Esteira(int id) {
+        this.id = id;
     }
 
-    @Override
-    public void run() {
-        System.out.println("AOBA");
-
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
     }
 }
