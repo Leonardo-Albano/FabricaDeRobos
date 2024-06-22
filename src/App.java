@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Semaphore;
+// import java.util.concurrent.Semaphore;
 
 import Fabrica.*;
 
@@ -71,16 +71,13 @@ public class App {
     private static void iniciar() throws InterruptedException{
         //Argumentos necessários para instanciar os objetos:
         int idEsteira;
-        
         int idInicialGrupo;
         int idInicialFuncionarios;
-        
         List<String> tiposComponentes;
-        
         int qtdGrupos;
         int qtdFuncionarios;
 
-        //Instanciar a primeira esteira
+        // Instanciar a primeira esteira
         idEsteira = 1;
         idInicialGrupo = 1;
         
@@ -88,17 +85,16 @@ public class App {
             Arrays.asList(Componente.PERNA_ESQUERDA, Componente.PERNA_DIREITA, Componente.BRACO_ESQUERDO, Componente.BRACO_DIREITO)
         );
         qtdGrupos = tiposComponentes.size();
-
         qtdFuncionarios = 12;
         idInicialFuncionarios = 1;
 
-        Esteira esteira1 = instanciarEsteiras(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios, idInicialFuncionarios);
-        
-        //Instanciar a segunda esteira
+        Esteira esteira1 = instanciarEsteira(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios,
+                idInicialFuncionarios);
+
+        // Instanciar a segunda esteira
         idEsteira = 2;
         idInicialGrupo = qtdGrupos + 1;
-        
-        idInicialFuncionarios = idInicialFuncionarios + (qtdFuncionarios*qtdGrupos);
+        idInicialFuncionarios += qtdFuncionarios * qtdGrupos;
         qtdFuncionarios = 9;
 
         tiposComponentes = new ArrayList<>(
