@@ -3,11 +3,19 @@ package Fabrica;
 import java.util.List;
 
 public class Grupo {
-    public List<Funcionario> funcionarios;
-    public int countFuncionarios;
 
-    public Grupo(List<Funcionario> funcionarios) {
+    private int id;
+
+    private List<Funcionario> funcionarios;
+    
+    private Esteira esteira;
+    
+    public Grupo(int id, Esteira esteira) {
+        this.id = id;
+        this.esteira = esteira;
+    }
+    
+    public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
-        this.countFuncionarios = funcionarios.size();
-    } 
+    }
 }
