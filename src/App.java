@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-// import java.util.concurrent.Semaphore;
+import java.util.concurrent.Semaphore;
 
 import Fabrica.*;
 
@@ -88,7 +88,7 @@ public class App {
         qtdFuncionarios = 12;
         idInicialFuncionarios = 1;
 
-        Esteira esteira1 = instanciarEsteira(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios,
+        Esteira esteira1 = instanciarEsteiras(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios,
                 idInicialFuncionarios);
 
         // Instanciar a segunda esteira
