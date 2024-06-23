@@ -103,7 +103,8 @@ public class Esteira {
         if (indexParaRetirarDaLista >= this.listaComponentes.size() || indexParaRetirarDaLista < 0) {
             semaforoListaComponentes.release();
             semaforoInserirRetirar.release();
-            throw new IndexOutOfBoundsException("Índice fora dos limites: " + indexParaRetirarDaLista);
+            System.out.println("Índice fora dos limites: " + indexParaRetirarDaLista);
+            return null;
         }
 
         Componente componente = this.listaComponentes.remove(indexParaRetirarDaLista);

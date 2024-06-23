@@ -35,6 +35,11 @@ public class Montador implements Runnable {
         Componente cabeca = esteira2.retirarComponenteDoEstoque(Componente.CABECA);
         Componente carcaca = esteira2.retirarComponenteDoEstoque(Componente.CARCACA);
 
+        if (bracoEsquerdo == null || bracoDireito == null || pernaEsquerda == null || pernaDireita == null
+                || cabeca == null || carcaca == null) {
+            throw new IndexOutOfBoundsException("Sem componentes");
+        }
+
         Thread.sleep(3000);
 
         // Criar log

@@ -40,7 +40,7 @@ public class Grupo {
 
     public int retirarComponenteDoEstoque() throws InterruptedException {
         if (this.listaPonteirosComponentes.isEmpty()) {
-            throw new IndexOutOfBoundsException("Não há componentes no estoque.");
+            return -1;
         }
         
         return this.listaPonteirosComponentes.remove(0);
