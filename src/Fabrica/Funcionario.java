@@ -4,15 +4,15 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Funcionario implements Runnable{
-
-    private static final int TEMPO_PARA_PRODUZIR = 2000; //2 Segundos
+public class Funcionario implements Runnable {
 
     private int id;
+
     public int getId() {
         return id;
     }
-    public int getGrupoId(){
+
+    public int getGrupoId() {
         return this.grupo.getId();
     }
 
@@ -29,7 +29,7 @@ public class Funcionario implements Runnable{
         this.ferramentaEsq = ferramentaEsq;
         this.ferramentaDir = ferramentaDir;
     }
-   
+
     public Componente produzirComponente() throws InterruptedException {
         Thread.sleep(new Random().nextInt(10000));
 

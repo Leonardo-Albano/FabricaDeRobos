@@ -16,9 +16,9 @@ public class Grupo {
     private List<Integer> listaPonteirosComponentes;
     private int posicaoPrimeiroPonteiro;
     private int posicaoUltimoPonteiro;
-    
+
     private Esteira esteira;
-    
+
     public Grupo(int id, Esteira esteira) {
         this.id = id;
         this.esteira = esteira;
@@ -32,18 +32,17 @@ public class Grupo {
         this.funcionarios = funcionarios;
     }
 
-    public void inserirComponenteNoEstoque(Componente componente) throws InterruptedException{
+    public void inserirComponenteNoEstoque(Componente componente) throws InterruptedException {
         int posicaoNoEstoque = this.esteira.inserirComponenteNoEstoque(componente);
         this.listaPonteirosComponentes.add(posicaoNoEstoque);
         this.posicaoUltimoPonteiro++;
     }
 
-    public int retirarComponenteDoEstoque() throws InterruptedException{
+    public int retirarComponenteDoEstoque() throws InterruptedException {
         if (this.listaPonteirosComponentes.isEmpty()) {
             throw new IndexOutOfBoundsException("Não há componentes no estoque.");
         }
-        int posicaoDoComponenteNoEstoque = this.listaPonteirosComponentes.remove(this.posicaoPrimeiroPonteiro);
-        this.posicaoPrimeiroPonteiro = this.listaPonteirosComponentes.isEmpty() ? 0 : this.posicaoPrimeiroPonteiro + 1;
-        return posicaoDoComponenteNoEstoque;
+        
+        return this.listaPonteirosComponentes.remove(0);
     }
 }
