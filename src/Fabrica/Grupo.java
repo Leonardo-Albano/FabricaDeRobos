@@ -42,7 +42,9 @@ public class Grupo {
         if (this.listaPonteirosComponentes.isEmpty()) {
             return -1;
         }
-        
-        return this.listaPonteirosComponentes.remove(0);
+
+        int posicaoDoComponenteNoEstoque = this.listaPonteirosComponentes.remove(this.posicaoPrimeiroPonteiro);
+        this.posicaoPrimeiroPonteiro = this.listaPonteirosComponentes.isEmpty() ? 0 : this.posicaoPrimeiroPonteiro + 1;
+        return posicaoDoComponenteNoEstoque;
     }
 }
