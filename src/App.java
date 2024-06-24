@@ -106,15 +106,24 @@ public class App {
 
         List<Grupo> listaGrupos = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
+        List<Semaphore> listaFerramentas = new ArrayList<>();
 
         for (int indexGrupo = 0; indexGrupo < qtdGrupos; indexGrupo++) {
             int idGrupo = indexGrupo + idInicialGrupo;
             Grupo grupo = new Grupo(idGrupo, null);
 
+            // Essa parte do código, é responsável por pegar as peças e montar os robos com paralelismo. 
             List<Montador> montadores = new ArrayList<>();
             for (int indexFuncionario = 0; indexFuncionario < qtdFuncionarios; indexFuncionario++) {
                 int idFuncionario = indexFuncionario + idInicialFuncionarios;
-                Montador montador = new Montador(idFuncionario, grupo, esteira1, esteira2, esteiraFinal);
+                int indexFerramentaEsq = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario : qtdFuncionarios - 1;
+                int indexFerramentaDir = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario + 1 : 0;
+
+                Semaphore ferramentaEsq = listaFerramentas.get(indexFerramentaEsq);
+                Semaphore ferramentaDir = listaFerramentas.get(indexFerramentaDir);
+
+                Montador montador = new Montador(idFuncionario, grupo, esteira1, esteira2, esteiraFinal, ferramentaDir, ferramentaEsq);
+                
                 threads.add(new Thread(montador));
                 montadores.add(montador);
             }

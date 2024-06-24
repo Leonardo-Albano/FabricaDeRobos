@@ -1,28 +1,51 @@
 package Fabrica;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 public class Montador implements Runnable {
     private int id;
     private Grupo grupo;
     private Esteira esteira1;
     private Esteira esteira2;
     private EsteiraFinal esteiraFinal;
+    private Semaphore ferramentaEsq;
+    private Semaphore ferramentaDir;
 
-    public Montador(int id, Grupo grupo, Esteira esteira1, Esteira esteira2, EsteiraFinal esteiraFinal) {
+    public Montador(int id, Grupo grupo, Esteira esteira1, Esteira esteira2, EsteiraFinal esteiraFinal,
+            Semaphore ferramentaEsq, Semaphore ferramentaDir) {
         this.id = id;
         this.grupo = grupo;
         this.esteira1 = esteira1;
         this.esteira2 = esteira2;
         this.esteiraFinal = esteiraFinal;
+        this.ferramentaEsq = ferramentaEsq;
+        this.ferramentaDir = ferramentaDir;
     }
 
+    /**
+     * 
+     * @throws InterruptedException
+     */
     private void montarRobo() throws InterruptedException {
+        // Enquanto não tiver todos os componentes fica esperando.
         while (!esteira1.hasComponentes(Componente.BRACO_ESQUERDO) ||
                 !esteira1.hasComponentes(Componente.BRACO_DIREITO) ||
                 !esteira1.hasComponentes(Componente.PERNA_ESQUERDA) ||
                 !esteira1.hasComponentes(Componente.PERNA_DIREITA) ||
                 !esteira2.hasComponentes(Componente.CARCACA) ||
                 !esteira2.hasComponentes(Componente.CABECA)) {
-            Thread.sleep(1000); // Espera 1 segundo antes de verificar novamente
+            Thread.sleep(3000); // Espera 1 segundo antes de verificar novamente
+        }
+
+        boolean adquiriuFerramentas = false;
+        while (!adquiriuFerramentas) {
+            if (ferramentaEsq.tryAcquire(1, TimeUnit.SECONDS) && ferramentaDir.tryAcquire(1, TimeUnit.SECONDS)) {
+                adquiriuFerramentas = true;
+            } else {
+                ferramentaEsq.release(); // Libera a ferramenta esquerda se não conseguiu adquirir ambas
+                Thread.sleep(100); // Aguarda um curto período antes de tentar novamente
+            }
         }
 
         // Pegar componentes da esteira 1
@@ -35,11 +58,7 @@ public class Montador implements Runnable {
         Componente cabeca = esteira2.retirarComponenteDoEstoque(Componente.CABECA);
         Componente carcaca = esteira2.retirarComponenteDoEstoque(Componente.CARCACA);
 
-        if (bracoEsquerdo == null || bracoDireito == null || pernaEsquerda == null || pernaDireita == null
-                || cabeca == null || carcaca == null) {
-            throw new IndexOutOfBoundsException("Sem componentes");
-        }
-
+        // Espera 3 segundos
         Thread.sleep(3000);
 
         // Criar log
@@ -58,6 +77,10 @@ public class Montador implements Runnable {
 
         // Criar o robô
         Robo robo = new Robo(bracoEsquerdo, bracoDireito, pernaEsquerda, pernaDireita, carcaca, cabeca, log);
+        
+        // Libera as ferramentas após o uso
+        ferramentaEsq.release(); 
+        ferramentaDir.release();
 
         // Colocar o robô na esteira final
         esteiraFinal.adicionarRobo(robo);
