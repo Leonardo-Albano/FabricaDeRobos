@@ -34,13 +34,15 @@ public class App {
             for (int indexFuncionario = 0; indexFuncionario < qtdFuncionarios; indexFuncionario++) {
 
                 int idFuncionario = indexFuncionario + idInicialFuncionarios;
-                int indexFerramentaEsq = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario : qtdFuncionarios - 1;
+                int indexFerramentaEsq = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario
+                        : qtdFuncionarios - 1;
                 int indexFerramentaDir = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario + 1 : 0;
 
                 Semaphore ferramentaEsq = listaFerramentas.get(indexFerramentaEsq);
                 Semaphore ferramentaDir = listaFerramentas.get(indexFerramentaDir);
 
-                Funcionario funcionario = new Funcionario(idFuncionario, grupo, tipoComponente, ferramentaEsq, ferramentaDir);
+                Funcionario funcionario = new Funcionario(idFuncionario, grupo, tipoComponente, ferramentaEsq,
+                        ferramentaDir);
 
                 threads.add(new Thread(funcionario));
                 listaFuncionarios.add(funcionario);
@@ -72,8 +74,8 @@ public class App {
         idInicialGrupo = 1;
 
         tiposComponentes = new ArrayList<>(
-                Arrays.asList(Componente.PERNA_ESQUERDA, Componente.PERNA_DIREITA, Componente.BRACO_ESQUERDO, Componente.BRACO_DIREITO)
-        );
+                Arrays.asList(Componente.PERNA_ESQUERDA, Componente.PERNA_DIREITA, Componente.BRACO_ESQUERDO,
+                        Componente.BRACO_DIREITO));
         qtdGrupos = tiposComponentes.size();
         qtdFuncionarios = 12;
         idInicialFuncionarios = 1;
@@ -88,11 +90,11 @@ public class App {
         qtdFuncionarios = 9;
 
         tiposComponentes = new ArrayList<>(
-                Arrays.asList(Componente.CARCACA, Componente.CABECA)
-        );
+                Arrays.asList(Componente.CARCACA, Componente.CABECA));
         qtdGrupos = tiposComponentes.size();
 
-        Esteira esteira2 = instanciarEsteiras(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios, idInicialFuncionarios);
+        Esteira esteira2 = instanciarEsteiras(idEsteira, idInicialGrupo, tiposComponentes, qtdGrupos, qtdFuncionarios,
+                idInicialFuncionarios);
 
         // Instanciar a esteira final
         EsteiraFinal esteiraFinal = new EsteiraFinal();
@@ -107,23 +109,29 @@ public class App {
         List<Grupo> listaGrupos = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
         List<Semaphore> listaFerramentas = new ArrayList<>();
-
+        
+        for (int indexFerramenta = 0; indexFerramenta < qtdFuncionarios; indexFerramenta++) {
+            listaFerramentas.add(new Semaphore(1));
+        }
         for (int indexGrupo = 0; indexGrupo < qtdGrupos; indexGrupo++) {
             int idGrupo = indexGrupo + idInicialGrupo;
             Grupo grupo = new Grupo(idGrupo, null);
 
-            // Essa parte do código, é responsável por pegar as peças e montar os robos com paralelismo. 
+            // Essa parte do código, é responsável por pegar as peças e montar os robos com
+            // paralelismo.
             List<Montador> montadores = new ArrayList<>();
             for (int indexFuncionario = 0; indexFuncionario < qtdFuncionarios; indexFuncionario++) {
                 int idFuncionario = indexFuncionario + idInicialFuncionarios;
-                int indexFerramentaEsq = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario : qtdFuncionarios - 1;
+                int indexFerramentaEsq = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario
+                        : qtdFuncionarios - 1;
                 int indexFerramentaDir = indexFuncionario != qtdFuncionarios - 1 ? indexFuncionario + 1 : 0;
 
                 Semaphore ferramentaEsq = listaFerramentas.get(indexFerramentaEsq);
                 Semaphore ferramentaDir = listaFerramentas.get(indexFerramentaDir);
 
-                Montador montador = new Montador(idFuncionario, grupo, esteira1, esteira2, esteiraFinal, ferramentaDir, ferramentaEsq);
-                
+                Montador montador = new Montador(idFuncionario, grupo, esteira1, esteira2, esteiraFinal, ferramentaDir,
+                        ferramentaEsq);
+
                 threads.add(new Thread(montador));
                 montadores.add(montador);
             }
